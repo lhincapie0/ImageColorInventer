@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 
 namespace TrabajoFinalArquitecturaHardware
 {
@@ -20,39 +21,68 @@ namespace TrabajoFinalArquitecturaHardware
         public const int DEPTH_1 = 8;
         public const int DEPTH_2 = 16;
         public const int DEPTH_3 = 32;
+        public StreamWriter writer;
 
         public Experiment()
         {
-            size = SIZE_1;
+            size = SIZE_3;
             bitDepth = DEPTH_3;
             getImage();
+            int algorithm = 3;
+            String fileName = "Algorithm " + algorithm + " Size " + size + " BitDepth " + bitDepth;
 
-            int algorithm = 5;
-            switch(algorithm)
+            writer = new StreamWriter("./Data/"+fileName+".txt");
+            switch (algorithm)
             {
                 case 1:
                     {
-                        algorithm1();
+                        for(int i = 0;i<100; i++)
+                        {
+                            algorithm1();
+                        }
+                        writer.Close();
                         break;
                     }
                 case 2:
                     {
-                        algorithm2();
+                        for (int i = 0; i < 100; i++)
+                        {
+                            algorithm2();
+                        }
+                        writer.Close();
                         break;
                     }
                 case 3:
                     {
-                        algorithm3();
+
+                        for (int i = 0; i < 100; i++)
+                        {
+                            algorithm3();
+                        }
+                        writer.Close();
                         break;
                     }
                 case 4:
                     {
-                        algorithm4();
+
+                        for (int i = 0; i < 100; i++)
+                        {
+                            Console.WriteLine(i);
+
+                            algorithm4();
+                        }
+                        writer.Close();
                         break;
                     }
                 case 5:
                     {
-                        algorithm5();
+                        for (int i = 0; i < 100; i++)
+                        {
+                            Console.WriteLine(i);
+
+                            algorithm5();
+                        }
+                        writer.Close();
                         break;
                     }
             }
@@ -89,7 +119,9 @@ namespace TrabajoFinalArquitecturaHardware
             }
             sw.Stop();
             time = (long)(sw.Elapsed.TotalMilliseconds * 1000000);
-            Console.WriteLine("Algorithm 1 - Size "+size+" BitDepth "+ bitDepth+": " + time);
+           // Console.WriteLine("Algorithm 1 - Size "+size+" BitDepth "+ bitDepth+": " + time);
+            writer.WriteLine(time);
+
             newImage.Save("./NewImages/" + size + "-" + bitDepth + ".bmp");
         }
 
@@ -142,7 +174,8 @@ namespace TrabajoFinalArquitecturaHardware
             }
             sw.Stop();
             time = (long)(sw.Elapsed.TotalMilliseconds * 1000000);
-            Console.WriteLine("Algorithm 2 - Size " + size + " BitDepth " + bitDepth + ": " + time);
+          //  Console.WriteLine("Algorithm 2 - Size " + size + " BitDepth " + bitDepth + ": " + time);
+            writer.WriteLine(time);
             newImage.Save("./NewImages/" + size + "-" + bitDepth + ".bmp");
         }
 
@@ -172,7 +205,8 @@ namespace TrabajoFinalArquitecturaHardware
             }
             sw.Stop();
             time = (long)(sw.Elapsed.TotalMilliseconds * 1000000);
-            Console.WriteLine("Algorithm 3 - Size " + size + " BitDepth " + bitDepth + ": " + time);
+         //   Console.WriteLine("Algorithm 3 - Size " + size + " BitDepth " + bitDepth + ": " + time);
+            writer.WriteLine(time);
             newImage.Save("./NewImages/" + size + "-" + bitDepth + ".bmp");
         }
 
@@ -216,7 +250,8 @@ namespace TrabajoFinalArquitecturaHardware
        
             sw.Stop();
             time = (long)(sw.Elapsed.TotalMilliseconds * 1000000);
-            Console.WriteLine("Algorithm 4 - Size " + size + " BitDepth " + bitDepth + ": " + time);
+        //    Console.WriteLine("Algorithm 4 - Size " + size + " BitDepth " + bitDepth + ": " + time);
+            writer.WriteLine(time);
             newImage.Save("./NewImages/" + size + "-" + bitDepth + ".bmp");
         }
   
@@ -273,14 +308,14 @@ namespace TrabajoFinalArquitecturaHardware
             }
             sw.Stop();
             time = (long)(sw.Elapsed.TotalMilliseconds * 1000000);
-            Console.WriteLine("Algorithm 5 - Size " + size + " BitDepth " + bitDepth + ": " + time);
+            //Console.WriteLine("Algorithm 5 - Size " + size + " BitDepth " + bitDepth + ": " + time);
+            writer.WriteLine(time);
             newImage.Save("./NewImages/" + size + "-" + bitDepth + ".bmp");
         }
 
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
             Experiment experiment = new Experiment();
         }
     }
